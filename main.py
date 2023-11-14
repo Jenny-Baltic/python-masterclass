@@ -45,6 +45,7 @@ bullet_cooldown = 800
 last_bullet_time = 0
 bullets = []
 
+# Score
 spaceship = pygame.image.load(os.path.join("assets", "images", "spaceship.png")).convert_alpha()
 spaceship_rect = spaceship.get_rect()
 spaceship_rect.topleft = (25, 25)
