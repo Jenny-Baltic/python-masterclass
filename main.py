@@ -45,6 +45,12 @@ bullet_cooldown = 800
 last_bullet_time = 0
 bullets = []
 
+spaceship = pygame.image.load(os.path.join("assets", "images", "spaceship.png")).convert_alpha()
+spaceship_rect = spaceship.get_rect()
+spaceship_rect.topleft = (25, 25)
+score = 0
+info_font = pygame.font.Font(os.path.join("assets", "fonts", "LuckiestGuy-Regular.ttf"), 32)
+
 # Enemies
 enemy_one = pygame.image.load(os.path.join("assets", "images", "spaceship_en_one.png")).convert_alpha()
 enemy_two = pygame.image.load(os.path.join("assets", "images", "spaceship_en_two.png")).convert_alpha()
@@ -143,8 +149,12 @@ while running:
                     game_over = True
                 for bullet_image, bullet_rect in bullets:
                     if enemy_rect.colliderect(bullet_rect) and enemy_rect.right < 800:
+                        score += 1
                         enemies.remove((enemy_image, enemy_rect))
                         bullets.remove((bullet_image, bullet_rect))
+
+        # Update score
+        score_text = info_font.render(f"{score}", True, WHITE)
 
         # Draw surfaces 
         screen.blit(background, background_rect_one)
@@ -154,6 +164,8 @@ while running:
         for bullet_image, bullet_rect in bullets:
             screen.blit(bullet_image, bullet_rect)
         screen.blit(player, player_rect)
+        screen.blit(spaceship, spaceship_rect)
+        screen.blit(score_text, (80, 40))
 
     else: 
         keys = pygame.key.get_pressed()
